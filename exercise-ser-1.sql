@@ -29,7 +29,7 @@ CREATE TABLE countries(
 */
 
 CREATE TABLE IF NOT EXISTS countries(
-    country_id INT(3), 
+    country_id VARCHAR(3), 
     country_name VARCHAR(56), 
     region_id INT(3),
     PRIMARY KEY(country_id)
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS countries (
 */
 
 CREATE TABLE IF NOT EXISTS countries(
-    country_id INT(3), 
+    country_id VARCHAR(3), 
     country_name VARCHAR(56), 
     region_id INT(3),
     PRIMARY KEY(country_id)
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS countries (
 */
 
 CREATE TABLE IF NOT EXISTS countries(
-    country_id INT(3) NOT NULL,
+    country_id VARCHAR(3) NOT NULL,
     country_name VARCHAR(56) NOT NULL,
     region_id INT(3) NOT NULL,
     PRIMARY KEY(country_id)
@@ -181,6 +181,17 @@ and make sure that the value against column
 end_date will be entered at the time of 
 insertion to the format like '--/--/----'. 
 */
+
+CREATE TABLE IF NOT EXISTS job_history(
+    employee_id INT PRIMARY KEY,
+    start_date DATE NOT NULL,
+    end_date DATE NULL,
+    job_id INT NOT NULL,
+    department_id INT NOT NULL
+);
+
+INSERT INTO job_history VALUES(102, "1962-12-31", "2006-05-09", 666, 234);
+SELECT * FROM job_history;
 
 /*
 9. Write a SQL statement to create a table named 
