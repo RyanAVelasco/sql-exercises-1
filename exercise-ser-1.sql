@@ -7,6 +7,12 @@ Exercises on Data Manipulation Language (DML) &
 Data Definition Language (DDL)
 MySQL Create Table statement [20 Exercises]
 https://www.w3resource.com/mysql-exercises/create-table-exercises/
+
+Note: I'm finding that the questions are worded 
+in a way that makes it hard to interpret. Also, 
+when clicking the solution, the question being
+asked changes and makes sense. QA definitely 
+was needed in this set.
 */
 
 /*
@@ -23,9 +29,9 @@ CREATE TABLE countries(
 */
 
 CREATE TABLE IF NOT EXISTS countries(
-    country_id VARCHAR(2), 
+    country_id INT(3), 
     country_name VARCHAR(56), 
-    region_id VARCHAR(8),
+    region_id INT(3),
     PRIMARY KEY(country_id)
     -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
 );
@@ -48,47 +54,89 @@ CREATE TABLE IF NOT EXISTS countries (
 */
 
 CREATE TABLE IF NOT EXISTS countries(
-    country_id VARCHAR(2), 
+    country_id INT(3), 
     country_name VARCHAR(56), 
-    region_id VARCHAR(8),
+    region_id INT(3),
     PRIMARY KEY(country_id)
     -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
 );
 
 /*
 3. Write a SQL statement to create the structure of 
-a table dup_countries similar to countries. 
+a table dup_countries similar (LIKE) to countries.
 
-Note: To be honest, I don't see a difference between
-how you would go about solving Q3 & Q4 because you
-end up with the same result. Maybe I'm missing
-something but the only difference I've noticed
-is the wording of the question.
+Solution:
+CREATE TABLE IF NOT EXISTS dup_countries
+LIKE countries;
 */
+
+CREATE TABLE IF NOT EXISTS dup_countries
+LIKE countries;
 
 /*
 4. Write a SQL statement to create a duplicate copy 
 of countries table including structure and data by 
 name dup_countries. 
-
-Note: To be honest, I don't see a difference between
-how you would go about solving Q3 & Q4 because you
-end up with the same result. Maybe I'm missing
-something but the only difference I've noticed
-is the wording of the question.
 */
+
+CREATE TABLE IF NOT EXISTS dup_countries
+LIKE countries
+AS SELECT * FROM countries;
 
 /*
 5. Write a SQL statement to create a table 
-countries set a constraint NULL. 
+countries set a constraint [NOT] NULL. 
+
+Note: I'm assuming countries TABLE will be have the
+same columns as in previous questions.
+
+Solution:
+CREATE TABLE IF NOT EXISTS countries ( 
+    COUNTRY_ID varchar(2) NOT NULL,
+    COUNTRY_NAME varchar(40) NOT NULL,
+    REGION_ID decimal(10,0) NOT NULL
+);
 */
+
+CREATE TABLE IF NOT EXISTS countries(
+    country_id INT(3) NOT NULL,
+    country_name VARCHAR(56) NOT NULL,
+    region_id INT(3) NOT NULL,
+    PRIMARY KEY(country_id)
+    -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
+);
 
 /*
 6. Write a SQL statement to create a table named 
 jobs including columns job_id, job_title, 
 min_salary, max_salary and check whether the 
 max_salary amount exceeding the upper limit 25000. 
+
+Note: Realized after creating the TABLE that
+salaries can contain cents. Also, I don't 
+understsand why MIN_SALARY isn't allowed to be
+NULL. Isn't there a minimium standard for
+salaries considering that there are minimum wages
+in effect: https://www.dol.gov/agencies/whd/flsa
+so $7.25 * 40 * 52 = $15,080 <-- salary?
+
+Solution:
+CREATE TABLE IF NOT EXISTS jobs ( 
+    JOB_ID varchar(10) NOT NULL , 
+    JOB_TITLE varchar(35) NOT NULL, 
+    MIN_SALARY decimal(6,0), 
+    MAX_SALARY decimal(6,0) 
+    CHECK(MAX_SALARY<=25000)
+);
 */
+
+CREATE TABLE IF NOT EXISTS jobs(
+    job_id INT PRIMARY KEY,
+    job_title VARCHAR(50) NOT NULL,
+    min_salary INT NOT NULL,
+    max_salary INT,
+    CHECK(max_salary <= 25000) -- FYI This is low.
+);
 
 /*
 7. Write a SQL statement to create a table named 
@@ -96,7 +144,34 @@ countries including columns country_id,
 country_name and region_id and make sure that no 
 countries except Italy, India and China will be 
 entered in the table. 
+
+Note: This one took me awhile to complete because
+I forgot that you can use IN to indicate a list of
+values. I kept writing variations of
+CHECK country_id 'ITA', 'IND', 'CHN'.
+I also created constraints for country_name and
+region_id since those could be used to indicate
+countries other than the ones required.
+
+Solution:
+CREATE TABLE IF NOT EXISTS countries ( 
+    COUNTRY_ID varchar(2),
+    COUNTRY_NAME varchar(40)
+    CHECK(COUNTRY_NAME IN('Italy','India','China')) ,
+    REGION_ID decimal(10,0)
+);
 */
+
+CREATE TABLE IF NOT EXISTS countries(
+    country_id VARCHAR(3) PRIMARY KEY,
+    country_name VARCHAR(56) NOT NULL,
+    region_id INT(3) NOT NULL,
+    CHECK(country_id IN ('ITA', 'IND', 'CHN')),
+    CHECK(country_name IN ('Italy', 'India', 'China')),
+    CHECK(region_id IN (150, 142))
+    -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
+    -- Note: India and China share the same region id (region id)
+);
 
 /*
 8. Write a SQL statement to create a table named 
