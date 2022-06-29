@@ -180,17 +180,37 @@ start_date, end_date, job_id and department_id
 and make sure that the value against column 
 end_date will be entered at the time of 
 insertion to the format like '--/--/----'. 
+
+Note: Apparently this is the solution and though
+you can use DESCRIBE to see the TABLE, trying
+something like the INSERT INTO statement gives me
+an error:
+Incorrect date value: '20/05/2009' for column 'END_DATE' at row 1
+So.. I've asked reddit.
+https://www.reddit.com/r/SQL/comments/vnq476/can_someone_let_me_know_if_this_is_a_valid/
+
+Solution:
+CREATE TABLE IF NOT EXISTS job_history ( 
+    EMPLOYEE_ID decimal(6,0) NOT NULL, 
+    START_DATE date NOT NULL, 
+    END_DATE date NOT NULL
+    CHECK (END_DATE LIKE '--/--/----'), 
+    JOB_ID varchar(10) NOT NULL, 
+    DEPARTMENT_ID decimal(4,0) NOT NULL 
+);
 */
 
 CREATE TABLE IF NOT EXISTS job_history(
     employee_id INT PRIMARY KEY,
     start_date DATE NOT NULL,
     end_date DATE NULL,
+    -- This next line seems fishy
+    CHECK(end_date LIKE "--/--/----"), 
     job_id INT NOT NULL,
     department_id INT NOT NULL
 );
 
-INSERT INTO job_history VALUES(102, "1962-12-31", "2006-05-09", 666, 234);
+INSERT INTO job_history VALUES(102, "1962-12-31", "2006/05/09", 666, 234);
 SELECT * FROM job_history;
 
 /*
@@ -199,7 +219,23 @@ countries including columns country_id,
 country_name and region_id and make sure that no 
 duplicate data against column country_id will be 
 allowed at the time of insertion. 
+
+Note: This should have the same solution as my
+answer from Q7, since PRIMARY KEY prevents 
+duplicate entries. So I'm just gonna paste that
+in.
 */
+
+CREATE TABLE IF NOT EXISTS countries(
+    country_id VARCHAR(3) PRIMARY KEY,
+    country_name VARCHAR(56) NOT NULL,
+    region_id INT(3) NOT NULL,
+    CHECK(country_id IN ('ITA', 'IND', 'CHN')),
+    CHECK(country_name IN ('Italy', 'India', 'China')),
+    CHECK(region_id IN (150, 142))
+    -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
+    -- Note: India and China share the same region id (region id)
+);
 
 /*
 10. Write a SQL statement to create a table named 
