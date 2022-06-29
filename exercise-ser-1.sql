@@ -13,6 +13,9 @@ in a way that makes it hard to interpret. Also,
 when clicking the solution, the question being
 asked changes and makes sense. QA definitely 
 was needed in this set.
+
+Note: The questions are confusing and so I'm
+going to find another question set.
 */
 
 /*
