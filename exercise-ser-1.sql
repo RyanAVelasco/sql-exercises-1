@@ -35,18 +35,47 @@ CREATE TABLE IF NOT EXISTS countries(
 countries including columns country_id,country_name 
 and region_id which is already exists. 
 Note: I don't know what this question is asking.. so..
-I'm going to have to skip it..
+I'll interpret it as if the table doesn't exist
+
+Note: My solution will be the same as Q1.
+
+Solution:
+CREATE TABLE IF NOT EXISTS countries ( 
+    COUNTRY_ID varchar(2),
+    COUNTRY_NAME varchar(40),
+    REGION_ID decimal(10,0)
+);
 */
+
+CREATE TABLE IF NOT EXISTS countries(
+    country_id VARCHAR(2), 
+    country_name VARCHAR(56), 
+    region_id VARCHAR(8),
+    PRIMARY KEY(country_id)
+    -- https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.csv
+);
 
 /*
 3. Write a SQL statement to create the structure of 
 a table dup_countries similar to countries. 
+
+Note: To be honest, I don't see a difference between
+how you would go about solving Q3 & Q4 because you
+end up with the same result. Maybe I'm missing
+something but the only difference I've noticed
+is the wording of the question.
 */
 
 /*
 4. Write a SQL statement to create a duplicate copy 
 of countries table including structure and data by 
 name dup_countries. 
+
+Note: To be honest, I don't see a difference between
+how you would go about solving Q3 & Q4 because you
+end up with the same result. Maybe I'm missing
+something but the only difference I've noticed
+is the wording of the question.
 */
 
 /*
