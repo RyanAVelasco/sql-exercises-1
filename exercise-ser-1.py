@@ -6,6 +6,7 @@ https://w3resource.com/mysql-exercises/
 Exercises on Data Manipulation Language (DML) & 
 Data Definition Language (DDL)
 MySQL Create Table statement [20 Exercises] 
+https://www.w3resource.com/mysql-exercises/create-table-exercises/
 '''
 
 '''
@@ -53,11 +54,11 @@ entered in the table.
 
 '''
 8. Write a SQL statement to create a table named 
-job_histry including columns employee_id, 
+job_history including columns employee_id, 
 start_date, end_date, job_id and department_id 
 and make sure that the value against column 
 end_date will be entered at the time of 
-insertion to the format like '--/--/----'. 
+insertion to the format like "--/--/----". 
 '''
 
 '''
